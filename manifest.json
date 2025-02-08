@@ -1,0 +1,11 @@
+{
+    "name": "Cooking with Canvas",
+    "version": "1.0.0",
+    "description": "This extension gives users a recipe to cook based on their academic workload on Canvas and their time commitments.",
+    "manifest_version": 3,
+    "author": "Ashi Sharma, Muyang Zhou, Prithikaa Sadagopan, Ella Whitney",
+    "action": {
+        "default_popup": "index.html", 
+        "default_title": "Cooking with Canvas" 
+    }
+}
