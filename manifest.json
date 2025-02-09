@@ -7,5 +7,14 @@
     "action": {
         "default_popup": "index.html", 
         "default_title": "Cooking with Canvas" 
-    }
+    },
+    "permissions": ["identity"],
+    "oauth2": {
+        "client_id": "304749233399-epdanhlba2vvg3qp0qmqeoeumq6jodpb.apps.googleusercontent.com",
+        "scopes": [
+            "https://www.googleapis.com/auth/calendar"
+        ], 
+        "key": "AIzaSyDHzyBKIp_K7hNiAC6TTxp6jGFXGKZZv_0"}
+    
+    
 }
