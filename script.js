@@ -1,41 +1,42 @@
 // imports
-import axios from 'axios';
-import dotenv from 'dotenv';
+import axios from './node_modules/axios/index.cjs';
+import dotenv from './node_modules/dotenv/lib/main';
 dotenv.config();
-import OpenAI from 'openai';
+import OpenAI from './node_modules/openai/index.mjs';
 
 let cooked = false;
-// // ELLA'S CODE
-// let settingsButton = document.getElementById("settings-button");
-// let recipeButton = document.getElementById("recipe-button");
-// let findMealButton = document.getElementById("find-meal");
-// settingsButton.addEventListener("click", loadSettings);
-// recipeButton.addEventListener("click", loadRecipe);
-// findMealButton.addEventListener("click", loadRecipe);
 
-// // hopefully we can access the question data here
-// let form = document.getElementById("questions");
+// ELLA'S CODE
+let settingsButton = document.getElementById("settings-button");
+let recipeButton = document.getElementById("recipe-button");
+let findMealButton = document.getElementById("find-meal");
+settingsButton.addEventListener("click", loadSettings);
+recipeButton.addEventListener("click", loadRecipe);
+findMealButton.addEventListener("click", loadRecipe);
 
-// // window.onload = function () {
-// //     var settingsButton = document.getElementById("settings-button");
-// //     var recipeButton = document.getElementById("recipe-button");
-// //     settingsButton.addEventListener("click", loadSettings);
-// //     recipeButton.addEventListener("click", loadRecipe);
-// // }
+// hopefully we can access the question data here
+let form = document.getElementById("questions");
 
-// function loadSettings() {
-//     let settings = document.getElementById("settings");
-//     let recipe = document.getElementById("recipe");
-//     recipe.style.display = "none";
-//     settings.style.display = "flex";
+// window.onload = function () {
+//     var settingsButton = document.getElementById("settings-button");
+//     var recipeButton = document.getElementById("recipe-button");
+//     settingsButton.addEventListener("click", loadSettings);
+//     recipeButton.addEventListener("click", loadRecipe);
 // }
 
-// function loadRecipe() {
-//     let settings = document.getElementById("settings");
-//     let recipe = document.getElementById("recipe");
-//     recipe.style.display = "flex";
-//     settings.style.display = "none";
-// }
+function loadSettings() {
+    let settings = document.getElementById("settings");
+    let recipe = document.getElementById("recipe");
+    recipe.style.display = "none";
+    settings.style.display = "flex";
+}
+
+function loadRecipe() {
+    let settings = document.getElementById("settings");
+    let recipe = document.getElementById("recipe");
+    recipe.style.display = "flex";
+    settings.style.display = "none";
+}
 
 // PRITHIKAA'S CODE
 const options = {

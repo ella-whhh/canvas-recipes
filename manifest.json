@@ -5,8 +5,10 @@
     "manifest_version": 3,
     "author": "Ashi Sharma, Muyang Zhou, Prithikaa Sadagopan, Ella Whitney",
     "action": {
-        "default_popup": "popup.html", 
-        "default_title": "Cooking with Canvas" 
+        "default_popup": "popup.html",
+        "default_title": "Cooking with Canvas"
     },
-    "permissions": ["identity"]
+    "permissions": [
+        "identity"
+    ]
 }
