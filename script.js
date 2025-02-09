@@ -159,7 +159,7 @@ async function getTopSearchLink(query) {
 async function fetchTopLink(query) {
     topLink = await getTopSearchLink(query);
     if (!topLink) {
-        console.log('No top link found.');
+        console.log('No top link found.'); // TODO incorporate error messages into UI??
     }
 };
 
@@ -222,15 +222,15 @@ async function main(hours) {
     } else if (budget < 5) {
         budgetStr = 'cheap';
     } else if (budget < 10) {
-        budgetStr = 'affordable';
+        budgetStr = 'decently priced';
     } else if (budget < 20) {
-        budgetStr = 'mid-range';
+        budgetStr = 'higher-priced';
     } else {
         // budget >= 20
         budgetStr = 'bougie';
     }
 
-    let gptInput = "Generate a " + time + " " + difficulty + " " + budgetStr + " " +
+    let gptInput = "Generate a " + time + " " + difficulty + " " + budgetStr + " " + dietaryRestrictions + " " +
         "recipe for a meal. Only give the name of the recipe. Don't output anything else. Please.";
     console.log(gptInput);
     await getRecipe(gptInput);
