@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 import OpenAI from 'openai';
 
+let cooked = false;
 // // ELLA'S CODE
 // let settingsButton = document.getElementById("settings-button");
 // let recipeButton = document.getElementById("recipe-button");
@@ -175,9 +176,11 @@ async function main(hours) {
     if (downtimeScore < 0.1) {
         // hella busy (i.e. VERY cooked)
         time = 'very VERY quick grab n go';
+        cooked = true;
     } else if (downtimeScore < 0.5) {
         // cooked
         time = 'quick 5 minute';
+        cooked = true; // use this variable in display
     } else if (downtimeScore < 1) {
         // medium cooked
         time = 'quick 15 minute';
