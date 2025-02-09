@@ -7,6 +7,6 @@
     "action": {
         "default_popup": "popup.html", 
         "default_title": "Cooking with Canvas" 
-    }
-    "permissions": ["identity"],
+    },
+    "permissions": ["identity"]
 }

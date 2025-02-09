@@ -4,36 +4,80 @@ import dotenv from 'dotenv';
 dotenv.config();
 import OpenAI from 'openai';
 
-// ELLA'S CODE
-let settingsButton = document.getElementById("settings-button");
-let recipeButton = document.getElementById("recipe-button");
-let findMealButton = document.getElementById("find-meal");
-settingsButton.addEventListener("click", loadSettings);
-recipeButton.addEventListener("click", loadRecipe);
-findMealButton.addEventListener("click", loadRecipe);
+// // ELLA'S CODE
+// let settingsButton = document.getElementById("settings-button");
+// let recipeButton = document.getElementById("recipe-button");
+// let findMealButton = document.getElementById("find-meal");
+// settingsButton.addEventListener("click", loadSettings);
+// recipeButton.addEventListener("click", loadRecipe);
+// findMealButton.addEventListener("click", loadRecipe);
 
-// hopefully we can access the question data here
-let form = document.getElementById("questions");
+// // hopefully we can access the question data here
+// let form = document.getElementById("questions");
 
-// window.onload = function () {
-//     var settingsButton = document.getElementById("settings-button");
-//     var recipeButton = document.getElementById("recipe-button");
-//     settingsButton.addEventListener("click", loadSettings);
-//     recipeButton.addEventListener("click", loadRecipe);
+// // window.onload = function () {
+// //     var settingsButton = document.getElementById("settings-button");
+// //     var recipeButton = document.getElementById("recipe-button");
+// //     settingsButton.addEventListener("click", loadSettings);
+// //     recipeButton.addEventListener("click", loadRecipe);
+// // }
+
+// function loadSettings() {
+//     let settings = document.getElementById("settings");
+//     let recipe = document.getElementById("recipe");
+//     recipe.style.display = "none";
+//     settings.style.display = "flex";
 // }
 
-function loadSettings() {
-    let settings = document.getElementById("settings");
-    let recipe = document.getElementById("recipe");
-    recipe.style.display = "none";
-    settings.style.display = "flex";
-}
+// function loadRecipe() {
+//     let settings = document.getElementById("settings");
+//     let recipe = document.getElementById("recipe");
+//     recipe.style.display = "flex";
+//     settings.style.display = "none";
+// }
 
-function loadRecipe() {
-    let settings = document.getElementById("settings");
-    let recipe = document.getElementById("recipe");
-    recipe.style.display = "flex";
-    settings.style.display = "none";
+// PRITHIKAA'S CODE
+const options = {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+};
+
+async function create_array() {
+    fetch('https://www.googleapis.com/calendar/v3/calendars/66e3c9fe603a1a452f0eac3ea75bf0dc6595e23426a3542e5724b2e1a2a5870e@group.calendar.google.com/events?key=AIzaSyDHzyBKIp_K7hNiAC6TTxp6jGFXGKZZv_0')
+        .then((response) => response.json()) // Transform the data into json
+        .then(function (data) {
+            // console.log(JSON.stringify(data));
+            var res =
+                JSON.parse(JSON.stringify(data));
+            //console.log(res);
+            res.items = res.items.map(item => {
+                return {
+                    summary: item.summary,
+                    start: item.start,
+                    end: item.end
+                };
+            });
+            // console.log(res);
+            //return parse_all(res.items);
+            const today = new Date().toLocaleDateString(undefined, options);
+            let hours = 0;
+            res.items.forEach(element => {
+                const startTime = new Date(element.start.dateTime);
+                var date_string = startTime.toLocaleDateString(undefined, options);
+                if (today.localeCompare(date_string) == 0) {
+                    const endTime = new Date(element.end.dateTime);
+                    hours += ((endTime.getTime() - startTime.getTime()) / 3600000.0);
+                }
+            });
+            var sleep = Math.floor((Math.random() * 4) * 100) / 100;
+            sleep += 4;
+            hours += sleep;
+            console.log("h: " + hours);
+            main(hours);
+            //return hours;
+        });
 }
 
 // VOID'S CODE it works i think
@@ -43,9 +87,10 @@ const BRAVE_API_KEY = process.env.BRAVE_API_KEY;
 // dynamic
 let gptOutput = ''; // recipe name
 let topLink = ''; // link to a recipe to fetch to user
-let downtimeScore = 3.0; // how many hours per day the user is free for
+let downtimeScore = 3.0; // how many hours per day the user is free for, collected by calendar
 let userConfidence = 0.5; // 0-1 score of how confident the user is in cooking
 let budget = 10; // user's budget per meal in dollars
+let dietaryRestrictions = ''; // to be implemented
 
 //////// AI
 const openai = new OpenAI({
@@ -116,10 +161,17 @@ async function fetchTopLink(query) {
     }
 };
 
-async function main() {
+async function main(hours) {
+    // create array
+    // let hours = await create_array();
+    // calendarData should be set
+    console.log("h2: " + hours);
+    downtimeScore = (24 - hours) / 24.0;
+    console.log("dt: " + downtimeScore);
+
     // build gptInput
     let time = '';
-    if(downtimeScore < 0.1) {
+    if (downtimeScore < 0.1) {
         // hella busy (i.e. VERY cooked)
         time = 'very VERY quick grab n go';
     } else if (downtimeScore < 0.5) {
@@ -142,7 +194,7 @@ async function main() {
     }
 
     let difficulty = '';
-    if(difficulty < 0.1) {
+    if (difficulty < 0.1) {
         // novice
         difficulty = 'very easy';
     } else if (difficulty < 0.2) {
@@ -151,7 +203,7 @@ async function main() {
     } else if (difficulty < 0.4) {
         // intermediate
         difficulty = 'intermediate';
-    } else if ( difficulty < 0.6) { 
+    } else if (difficulty < 0.6) {
         difficulty = 'advanced';
     } else if (difficulty = 0.8) {
         // expert
@@ -161,9 +213,9 @@ async function main() {
     }
 
     let budgetStr = '';
-    if(budget < 2) {
+    if (budget < 2) {
         budgetStr = 'dirt broke college student cheap';
-    } else if(budget < 5) {
+    } else if (budget < 5) {
         budgetStr = 'cheap';
     } else if (budget < 10) {
         budgetStr = 'affordable';
@@ -173,9 +225,9 @@ async function main() {
         // budget >= 20
         budgetStr = 'bougie';
     }
-    
-    let gptInput = "Generate a " + time + " " + difficulty + " " + budgetStr + " " + 
-            "recipe for a meal. Only give the name of the recipe. Don't output anything else. Please.";
+
+    let gptInput = "Generate a " + time + " " + difficulty + " " + budgetStr + " " +
+        "recipe for a meal. Only give the name of the recipe. Don't output anything else. Please.";
     console.log(gptInput);
     await getRecipe(gptInput);
     // gptOutput now reflects the recipe generated by ai
@@ -185,4 +237,5 @@ async function main() {
     console.log("link found: " + topLink);
 }
 
-main();
+create_array();
+// main();
