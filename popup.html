@@ -6,19 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cooking with Canvas!</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </head>
 
 <body id="extension">
     <div id="navbar">
         <h1 id="title">Meal Planner</h1>
         <div id="nav-links">
-            <a href="javascript:loadSettings()">
+            <button id="settings-button">
                 <img class="icon" alt="settings" src="settings.png">
-            </a>
-            <a href="javascript:loadRecipe()">
+            </button>
+            <button id="recipe-button">
                 <img class="icon" alt="recipe" src="menu.png">
-            </a>
+            </button>
         </div>
     </div>
     <div id="settings">
@@ -27,15 +27,15 @@
                 <div>What is your cooking skill level?</div>
                 <div class="radio-buttons">
                     <div class="radio-button">
-                        <input class="radio" type="radio" id="beginner">
+                        <input class="radio" type="radio" id="beginner" name="skill" checked="checked">
                         <label for="beginner">Beginner</label>
                     </div>
                     <div class="radio-button">
-                        <input class="radio" type="radio" id="intermediate">
+                        <input class="radio" type="radio" id="intermediate" name="skill">
                         <label for="intermediate">Intermediate</label>
                     </div>
                     <div class="radio-button">
-                        <input class="radio" type="radio" id="advanced">
+                        <input class="radio" type="radio" id="advanced" name="skill">
                         <label for="advanced">Advanced</label>
                     </div>
                 </div>
@@ -44,20 +44,21 @@
                 <div>What is your budget?</div>
                 <div class="budget-input">
                     <label for="budget">$</label>
-                    <input type="text" id="budget">
-                    <select>
-                        <option>/day</option>
-                        <option>/week</option>
-                        <option>/two weeks</option>
-                        <option>/month</option>
+                    <input type="text" id="budget" name="budget" value="20">
+                    <select name="time" id="time">
+                        <option value="day" selected="selected">/day</option>
+                        <option value="week">/week</option>
+                        <option value="twoweek">/two weeks</option>
+                        <option value="month">/month</option>
                     </select>
                 </div>
             </div>
         </form>
-        <button class="button" type="button" onclick="goToRecipe">Find my meal!</button>
+        <button id="find-meal" class="button" type="button">Find my meal!</button>
     </div>
-    <div id="recipe">
-
+    <div id="recipe" style="display: none;">
+        <!-- LINK TO BE ADDED -->
+        <a id="recipe-link">Follow the recipe at this link!</a>
     </div>
 </body>
 

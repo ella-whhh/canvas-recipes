@@ -88,5 +88,8 @@
 }
 
 #recipe {
-    
+    padding:10px;
+    font-size: 16px;
+    justify-content: center;
+    align-items: center;
 }
