@@ -38,7 +38,7 @@ function loadRecipe() {
 
 // VOID'S CODE it works i think
 // static
-const BRAVE_API_KEY = process.env.BRAVE_API_KEY;
+const BRAVE_API_KEY = process.env.BRAVE_API_KEY; // BSAPDnG03B9plirRTdZ-QbH5EhnCUGJ
 
 // dynamic
 let gptOutput = ''; // recipe name
