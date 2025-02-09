@@ -71,8 +71,9 @@ async function create_array() {
                     hours += ((endTime.getTime() - startTime.getTime()) / 3600000.0);
                 }
             });
-            var sleep = Math.floor((Math.random() * 4) * 100) / 100;
-            sleep += 4;
+            // var sleep = Math.floor((Math.random() * 4) * 100) / 100;
+            // sleep += 4;
+            var sleep = 7;
             hours += sleep;
             console.log("h: " + hours);
             main(hours);
