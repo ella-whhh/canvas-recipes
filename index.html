@@ -1,11 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cooking with Canvas!</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
 </head>
-<body>
-    
+
+<body id="extension">
+    <div id="navbar">
+        <h1 id="title">Meal Planner</h1>
+        <div id="nav-links">
+            <a href="javascript:loadSettings()">
+                <img class="icon" alt="settings" src="settings.png">
+            </a>
+            <a href="javascript:loadRecipe()">
+                <img class="icon" alt="recipe" src="menu.png">
+            </a>
+        </div>
+    </div>
+    <div id="settings">
+        <form id="questions">
+            <div class="question">
+                <div>What is your cooking skill level?</div>
+                <div class="radio-buttons">
+                    <div class="radio-button">
+                        <input class="radio" type="radio" id="beginner">
+                        <label for="beginner">Beginner</label>
+                    </div>
+                    <div class="radio-button">
+                        <input class="radio" type="radio" id="intermediate">
+                        <label for="intermediate">Intermediate</label>
+                    </div>
+                    <div class="radio-button">
+                        <input class="radio" type="radio" id="advanced">
+                        <label for="advanced">Advanced</label>
+                    </div>
+                </div>
+            </div>
+            <div class="question">
+                <div>What is your budget?</div>
+                <div class="budget-input">
+                    <label for="budget">$</label>
+                    <input type="text" id="budget">
+                    <select>
+                        <option>/day</option>
+                        <option>/week</option>
+                        <option>/two weeks</option>
+                        <option>/month</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+        <button class="button" type="button" onclick="goToRecipe">Find my meal!</button>
+    </div>
+    <div id="recipe">
+
+    </div>
 </body>
+
 </html>
